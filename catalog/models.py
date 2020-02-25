@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse # Used to generate URLs by reversing the URL patterns
 import uuid # Required for unique book instances
+from datetime import date
 
 # Create your models here.
 class Genre(models.Model):
@@ -26,6 +27,8 @@ class Book(models.Model):
     # Genre class has already been defined so we can specify the object above.
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
 
+    language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
+
     def __str__(self):
         return self.title
     
@@ -40,7 +43,14 @@ class BookInstance(models.Model):
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
 
-    LOAN_STATUS = models.CharField(
+    LOAN_STATUS = (
+        ('m', 'Maintenance'),
+        ('o', 'On loan'),
+        ('a', 'Available'),
+        ('r', 'Reserved'),
+    )
+
+    status = models.CharField(
         max_length=1,
         choices=LOAN_STATUS,
         blank=True,
@@ -72,3 +82,10 @@ class Author(models.Model):
     def __str__(self):
         """String for representing the Model object"""
         return f'{self.first_name}, {self.last_name}'
+
+
+class Language(models.Model):
+    name = models.CharField(max_length=200, help_text='Enter the language the book is written in')
+
+    def __str__(self):
+        return self.name
