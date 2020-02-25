@@ -9,10 +9,14 @@ admin.site.register(Genre)
 # admin.site.register(BookInstance)
 admin.site.register(Language)
 
+class BooksInline(admin.TabularInline):
+    model = Book
+
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'date_of_birth', 'date_of_death')
     fields = ['first_name', 'last_name', ('date_of_birth', 'date_of_death')]
+    inlines = [BooksInline]
 
 class BooksInstanceInline(admin.TabularInline):
     model = BookInstance
