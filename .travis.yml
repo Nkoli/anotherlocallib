@@ -21,3 +21,5 @@ deploy:
   app:
     master: anotherlocallib
     staging: anotherlocallib-staging
+  on:
+    repo: Nkoli/anotherlocallib
