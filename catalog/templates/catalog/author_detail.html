@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Author: {{ author.first_name }}, {{ author.last_name }}</h1>
+
+  <p>{{ author.date_of_birth }}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h5>Books</h5>
+
+    {% for single_author in author.book_set.all %}
+      <hr>
+        <p><strong>{{ single_author.title }}</strong></p>
+        <p>{{ single_author.summary }}</p>
+    {% endfor %}
+  </div>
+{% endblock %}
