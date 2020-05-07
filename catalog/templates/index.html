@@ -13,6 +13,7 @@
     <li><strong>Authors:</strong> {{ num_authors }}</li>
     <li><strong>Fiction Genre:</strong> {{ num_genres }}</li>
     <li><strong>Specific Books:</strong> {{ specific_books }}</li>
-
   </ul>
+
+  <p>You've visited this page {{ num_visits }} {% if num_visits == 1 %} time {% else %} times{% endif %}.</p>
 {% endblock %}
