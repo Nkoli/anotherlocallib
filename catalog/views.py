@@ -57,7 +57,7 @@ class AuthorDetailView(generic.DetailView):
     model = Author
 
 
-class LoanedBooksByUserList(
+class LoanedBooksByUserListView(
     LoginRequiredMixin,
     generic.ListView):
     """Generic class-based view listing books on loan to current user."""
