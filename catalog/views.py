@@ -86,7 +86,7 @@ class LoanedBooksByLibrarianListView(PermissionRequiredMixin, generic.ListView):
 def renew_book_librarian(request, pk):
     book_instance = get_object_or_404(BookInstance, pk=pk)
 
-    if request.method == 'POST:
+    if request.method == 'POST':
         form = RenewBookForm(request.POST)
 
         if form.is_valid():
