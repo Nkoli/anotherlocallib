@@ -64,7 +64,6 @@ class AuthorDetailView(generic.DetailView):
 
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
-    """Generic class-based view listing books on loan to current user."""
     model = BookInstance
     template_name = 'catalog/bookinstance_list_borrowed_user.html'
     paginate_by = 5
@@ -75,7 +74,6 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
 
 class LoanedBooksByLibrarianListView(PermissionRequiredMixin, generic.ListView):
-    """Generic class-based view listing all books on loan to the librarians."""
     model = BookInstance
     template_name = 'catalog/bookinstance_list_borrowed_librarian.html'
     permission_required = 'catalog.can_mark_returned'
@@ -106,16 +104,19 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', context)
 
 
-class AuthorCreate(CreateView):
+class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
     fields = '__all__'
+    permission_required = 'catalog.can_mark_returned'
 
 
-class AuthorUpdate(UpdateView):
+class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+    permission_required = 'catalog.can_mark_returned'
 
 
-class AuthorDelete(DeleteView):
+class AuthorDelete(PermissionRequiredMixin, DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
+    permission_required = 'catalog.can_mark_returned'
