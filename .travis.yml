@@ -1,25 +1,16 @@
 language: python
 python:
-- '3.6'
+  - "3.6"
 install:
-- pip install -r requirements.txt
+  - pip install -r requirements.txt
 services:
-- postgresql
+  - postgresql
 before_script:
-- psql -c 'create database travis_ci_test;' -U postgres
-- python manage.py migrate --settings=anotherlocallib.settings.test
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - python manage.py migrate --settings=anotherlocallib.settings.test
 script:
-- python manage.py test --settings=anotherlocallib.settings.test
-- flake8 .
+  - python manage.py test --settings=anotherlocallib.settings.test
+  - flake8 .
 notifications:
   slack:
     secure: RU9H0rdV0+dy6Jh9zDgXFVgedlJtjYZx+lBUZX6RiEFNQlMTPYAVlvOmHRi7b/NKzk34TLaQrOcXKPvO1PFzecMOKtU0uBAukywJNqf8LUfQ1NxhS+m6uxBwhdFqXGs2HsKW6okECDmu16tlEvtGDgRFzB9beHXsHBVw3TUBH1H3BC+WPioI6+XsNl5gxT2xkgstMdQsCHx93r5+Js/9d157poDJIwfIXIDv46fzj7291nNqmNZ3R/yWOj6f6jFOFom1vFNqPvYp/CuPy+BWD9IRPkB/dPK0DfCntKusuGnjrxOMUkdlBCyku0N1fTyUMSlvbSs5VghjZmVp6b78EbYMM0zcso/Cq03tAQnkor6uUdbUMAHJGNEj9uZGekyhVlr6Jaf02qHHX1VYJCZD0QihpmbeqzT9JI7h/WNvkZ+7fCtShIyP45WUv9ccyANNkVikZoAYyVJsZodIDTrMSIXdWFHTXMbnZtG/s8rzgEeItZvhkxt0ORfVn4wLeDFH0tNTn8Kt/4dNbZspcsiQ6wNaXORScDoTn9WUT+i8myFCGhXv9ZE9HLPmeJPWUqWoswq3ZIewwbssC49rLI5iG5puAlA5b/v3mKiLrho8jB5oxMl4qjXr6tW9tiFkAvw3WQPI/uU+dx99JgG+8LhW+Nn1Y4+IcRIJouxc6DqmoMs=
-deploy:
-  provider: heroku
-  api_key:
-    secure: qTZq1fSZBtcNHgCYgGr+jaUJiMV48Vbi/455LKqm8TIrIQku2EaKrYolVNrnLkfjWu46s0EkT70I8wlRjzUmRRMle5XXJOXvyGmvgh4goTGY5X/RiKiZxp4GG85LS7oNPncXj+f9srmXzkhuhy32Yfh+/BcsWQdEpSLWJsvB7wSC+NZanRf880FpGRlyKHPhR1ZleoC9dMC6Q3OQTDXz2y6NT6nPaLK1ltLrn+NTaR9IUQpphiyKV5gFBGdjv9ftmPHXFXiy+dxOJcmVEWfkrb15j9m2FdqwpEjPmHwEcwLr3iExEbkmH/lGOXgMXDz98BbSnJ3PURVZyFb3oOttWfU6qAz/lQBjqHsXmjEYIvnbNjLmh0OG2zhfUpiPGa5v0E+J4g5VE/k1t+WTQWhMKsW6JYbeunl9tX2Frf5id7fN20yS03oJnnjvdZPZkxQTF/YFHbxWPb8T++37HPHU6wpCLnitoBIClLcQ0o0QLFOT1w8ghLqrhELqBn3T0JJzcw0tTnR+2B8DHIQ0UnWgpGBoYRGuJfcl5oi+hQvsci52P5IpnoZQ4jqo+xm/8TtvU8UdHmY3eG5q/H1m9YK+UZWXAvMYV5wAFP04pgaIC51NRs2Nlt84qEJEXO2IcANRq5ipK6SSbl+60a5qFf3EA/nFT1vS4ohLMj/QEeUegLs=
-  app:
-    master: anotherlocallib
-    staging: anotherlocallib-staging
-  on:
-    repo: Nkoli/anotherlocallib
